@@ -1,0 +1,32 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <title>tREASUREGRAM</title>
+</head>
+<body>
+<h1>treasuregram</h1>
+<main class="container container--mw700" role="main">
+    <div class="row">
+        {% for treasure in treasures %}
+        <div class="col-md-4">
+            <div class="treasure panel panel-default">
+                <div class="panel-heading">
+                    <h2 class="panel-title">{{ treasure.name }}</h2>
+                </div>
+                <div class="treasure-photo">
+                    <img src="{{ treasure.img_url }}" height="100">
+                </div>
+            </div>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}
+            </div><div class="row">
+        {% endif %}
+        {% endfor %}
+    </div>
+</main>
+</body>
+</html>
