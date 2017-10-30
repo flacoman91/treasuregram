@@ -1,9 +1,10 @@
-from django.shortcuts import rendergit
+from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 from .models import Treasure
-from .forms import TreasureForm
+from .forms import TreasureForm, LoginForm
 
 
 def index(request):
@@ -30,3 +31,42 @@ def profile(request, username):
     user = User.objects.get(username=username)
     treasures = Treasure.objects.filter(user=user)
     return render(request, 'profile.html', {'username': username, 'treasures': treasures})
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            u = form.cleaned_data['username']
+            p = form.cleaned_data['password']
+            user = authenticate(username=u, password=p)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return HttpResponseRedirect('/')
+                else:
+                    print("the account been disabled!")
+            else:
+                print("the user password wrong")
+    else:
+        form = LoginForm()
+        return render(request, 'login.html', {'form': form})
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
+
+def like_treasure(request):
+    treasure_id = request.POST.get('treasure_id', None)
+
+    likes = 0
+    if treasure_id:
+        treasure = Treasure.objects.get(id=int(treasure_id))
+    if treasure is not None:
+        likes = treasure.likes + 1
+        treasure.likes = likes
+        treasure.save()
+
+    return HttpResponse(likes)
