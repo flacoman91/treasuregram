@@ -1,16 +1,9 @@
+{% extends 'base.html' %}
 {% load staticfiles %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-    <title>tREASUREGRAM</title>
-</head>
-<body>
+
+{% block content %}
 <h1>{{ treasure.name }}</h1>
-<img src="{{ treasure.img_url }}"/>
+<img src="{{ treasure.image.url }}"/>
 <p>{{ treasure.value }}</p>
 <p>{{ treasure.location }}</p>
-</body>
-</html>
+{% endblock %}

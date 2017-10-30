@@ -1,0 +1,22 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <title>tREASUREGRAM</title>
+</head>
+<body>
+<main class="container" role="main">
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer class="footer" role="contentinfo">
+    <div class="container">
+        <p class="text-muted">&copy; Travel Tracker 2016</p>
+    </div>
+</footer>
+</body>
+</html>
